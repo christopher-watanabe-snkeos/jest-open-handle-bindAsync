@@ -3,12 +3,18 @@ const { startServer } = require("./mock-service.js");
 
 describe("Jest tests", () => {
   let server;
-  beforeAll(async () => {
-    server = await startServer();
+  beforeAll((done) => {
+    // eslint-disable-next-line consistent-return
+    startServer((err, srv) => {
+      if (err) return done(err);
+      server = srv;
+      done();
+    });
   });
 
-  afterAll(() => {
+  afterAll((done) => {
     server.forceShutdown();
+    done();
   });
 
   it("Assert true", () => {

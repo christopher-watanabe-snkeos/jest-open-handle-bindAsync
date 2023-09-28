@@ -8,7 +8,7 @@ function startServer(callback) {
     (err, port) => {
       if (err) {
         console.error("Error binding server:", err);
-        cancelIdleCallback(err);
+        callback(err);
         return;
       }
       testServer.start();

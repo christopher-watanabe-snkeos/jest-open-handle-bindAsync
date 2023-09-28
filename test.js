@@ -1,17 +1,16 @@
 const assert = require("assert");
-const mockService = require("./mock-service.js");
-
-let mockServer;
-
-beforeAll(() => {
-  mockServer = mockService.startServer();
-});
-
-afterAll(() => {
-  mockServer.forceShutdown(() => {});
-});
+const { startServer } = require("./mock-service.js");
 
 describe("Jest tests", () => {
+  let server;
+  beforeAll(async () => {
+    server = await startServer();
+  });
+
+  afterAll(() => {
+    server.forceShutdown();
+  });
+
   it("Assert true", () => {
     assert(true);
   });
